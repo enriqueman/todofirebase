@@ -62,13 +62,74 @@ export class HomePage implements OnInit {
     });
   }
 
+
+  modificarform(id:string){
+    
+    
+    this.database.getById('tarea',id);
+
+
+    
+    this.database.update('tarea',this.task,id).then(res=>{
+      console.log('Se actualizo con exito');
+    }).catch(err=>{
+      console.log("Error! No se actualizo", err)
+    });
+
+  }
+
+
+
   modificar(id:string){
     this.database.update('tarea',this.task,id).then(res=>{
       console.log('Se actualizo con exito');
     }).catch(err=>{
       console.log("Error! No se actualizo", err)
     });
+
   }
+
+  markasdone(id:string){
+
+    let a= this.database.getById('tarea',id);
+
+    a.then(res=>{
+      res?.subscribe(task1=>{
+
+
+      let datos ={
+        'actividad':  task1.get('actividad'),
+        'tipo': task1.get('tipo'),
+        'estado': 'Hechisimo'
+      }
+
+      this.database.update('tarea',datos,id);
+
+
+
+      
+
+
+       
+
+      })
+        
+      
+    })
+
+  
+
+      
+     } 
+  
+    
+
+
+
+
+
+
+   
 
   registrarTask(){
     this.database.create('tarea',this.task).then(res=>{

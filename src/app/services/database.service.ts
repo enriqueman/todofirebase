@@ -55,6 +55,14 @@ export class DatabaseService {
           console.log("error en: getById",error);
         }
         }
+        async updatestate(collection: string, dato: unknown, id: string){
+          try{
+            return  this.firestore.collection(collection).doc(id).set(dato);
+      
+          }catch(error){
+            console.log("error en: getById",error);
+          }
+          }
 
 
 }
